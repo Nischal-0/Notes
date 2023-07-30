@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Home Page{% endblock title %}
+
+{% block body %}
+
+<div class="container m-3">
+
+  <div>
+      Total Notes: {{total_task}}
+  </div>
+
+
+<br>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Actions</th>
+        <th scope="col">Assesment</th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+      {% for task in tasks %}
+      <tr>
+
+        <th scope="row">{{forloop.counter}}</th>
+
+        <td>{{task.title}}</td>
+
+        <td>{{task.description}}</td>
+
+        <td>
+          {% if task.is_completed %}
+            <p class="text-success">Primary</p>
+          {% else %}
+          <p class="text-danger">Secondary</p>
+          {% endif %}
+        </td>
+
+        <td>
+          <a href='edit/{{task.id}}' class = 'btn btn-primary'>Edit</a>
+
+          <form action="delete/{{task.id}}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{task.id}}">
+            <button type="submit" class ='btn btn-danger'>Delete</button>
+          </form>
+        </td>
+        
+        <td>
+          <a href='mark_completed/{{task.id}}' class = 'btn btn-primary'>Important</a>
+          <a href='mark_incompleted/{{task.id}}' class = 'btn btn-danger'>Not-Important</a>
+        </td>
+      </tr>
+      {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
+{% endblock body %}
+

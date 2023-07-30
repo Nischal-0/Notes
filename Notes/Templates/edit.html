@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Edit{% endblock title %}
+
+{% block body %}
+
+<div class = "container">
+  {% if error%}
+    <div class = "bg-danger">
+      <p>{{error}}</p>
+    </div>
+    {%endif%}
+</div>
+
+
+<form method="POST" action="/edit/{{task.id}}">
+{% csrf_token %}
+    <div class="mx-3">
+      <label for="exampleInputEmail1" class="form-label">Title</label>
+    
+      <input 
+      type="text" 
+      name="title" 
+      class="form-control" 
+      id="title" 
+      value = "{{task.title}}" 
+      aria-describedby="emailHelp">
+    
+    </div>
+   
+    <div class="form-floating">
+        <textarea 
+        name="description" 
+        class="form-control" 
+        placeholder="Description" 
+        id="floatingTextarea2" 
+        style="height: 100px">{{ task.description }}</textarea>
+        <label for="floatingTextarea2">Comments</label>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-info">Submit</button>
+  </form>
+</div>
+
+{% endblock body %}
