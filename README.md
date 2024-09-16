@@ -1,1 +1,1 @@
-Notes app using Pytho with django
+Django implementation on the Notes app built by python language.
